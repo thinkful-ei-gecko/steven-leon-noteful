@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Route } from 'react-router-dom'
 import Header from './Header/Header';
 import Sidebar from './Sidebar/Sidebar';
 import Main from './Main/Main';
@@ -9,7 +10,8 @@ export default class App extends Component {
     super(props)
     this.state = {
       store,
-      folderSelected: null
+      folderSelected: null,
+      noteSelected: null
     }
   }
 
@@ -20,12 +22,23 @@ export default class App extends Component {
     })
   }
 
+  handleNoteClicked = (noteId) => {
+    this.setState({
+      noteSelected: noteId
+    })
+    
+  }
   render() {
     return (
       <div>
-        <Header />
-        <Sidebar folders={store.folders} folderClicked={ this.handleFolderClicked } />
-        <Main notes={store.notes} currentFolderSelected={ this.state.folderSelected }/>
+        <Route exact path="/" component={<App />} />
+        <Route path="/header" component={<Header />} />
+        <Route path="/sidebar" render={() =>
+          <Sidebar folders={store.folders} folderClicked={ this.handleFolderClicked } />
+        } />
+        <Route path="/main" render={() => 
+          <Main notes={store.notes} currentFolderSelected={ this.state.folderSelected } handleNoteClicked={this.handleNoteClicked} noteSelected={this.state.noteSelected}/>
+        } />
       </div>
     );
   }
