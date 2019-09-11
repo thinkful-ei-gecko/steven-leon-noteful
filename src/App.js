@@ -8,12 +8,16 @@ export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      store
+      store,
+      folderSelected: null
     }
   }
 
   handleFolderClicked = (folderId) => {
-    console.log(folderId);
+    const setFolderId = folderId;
+    this.setState({
+      folderSelected: setFolderId
+    })
   }
 
   render() {
@@ -21,7 +25,7 @@ export default class App extends Component {
       <div>
         <Header />
         <Sidebar folders={store.folders} folderClicked={ this.handleFolderClicked } />
-        <Main notes={store.notes}/>
+        <Main notes={store.notes} currentFolderSelected={ this.state.folderSelected }/>
       </div>
     );
   }
