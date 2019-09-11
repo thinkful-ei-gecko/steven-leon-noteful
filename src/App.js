@@ -12,11 +12,15 @@ export default class App extends Component {
     }
   }
 
+  handleFolderClicked = (folderId) => {
+    console.log(folderId);
+  }
+
   render() {
     return (
       <div>
         <Header />
-        <Sidebar folders={store.folders} />
+        <Sidebar folders={store.folders} folderClicked={ this.handleFolderClicked } />
         <Main notes={store.notes}/>
       </div>
     );
