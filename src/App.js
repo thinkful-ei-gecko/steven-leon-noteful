@@ -16,9 +16,8 @@ export default class App extends Component {
   }
 
   handleFolderClicked = (folderId) => {
-    const setFolderId = folderId;
     this.setState({
-      folderSelected: setFolderId
+      folderSelected: folderId
     })
   }
 
@@ -31,14 +30,9 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <Route exact path="/" component={<App />} />
-        <Route path="/header" component={<Header />} />
-        <Route path="/sidebar" render={() =>
-          <Sidebar folders={store.folders} folderClicked={ this.handleFolderClicked } />
-        } />
-        <Route path="/main" render={() => 
-          <Main notes={store.notes} currentFolderSelected={ this.state.folderSelected } handleNoteClicked={this.handleNoteClicked} noteSelected={this.state.noteSelected}/>
-        } />
+        <Header />
+        <Sidebar folders={store.folders} folderClicked={ this.handleFolderClicked } />
+        <Main notes={store.notes} currentFolderSelected={ this.state.folderSelected } handleNoteClicked={this.handleNoteClicked} noteSelected={this.state.noteSelected}/>
       </div>
     );
   }
